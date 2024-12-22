@@ -17,45 +17,225 @@
 
 <body>
 
-    <div id = "frm">
+    <div id="frm">
 
-        
-    <form id="myForm">
 
-        <h3 class="login"><strong>Sign up for Skyblue Workplace</strong></h3>
+        <form id="myForm">
 
-        <label for="name">Name:</label>
+            <h3 class="login"><strong>Sign up for Skyblue Workplace</strong></h3>
 
-        <p>
-        <input type="text" placeholder="Enter name" id="name" name="name" class="edit" value="testtest" required>
-        <p class="error-username" id="error-username">Enter valid name.</p>
-    </p>
+            <label for="name">Name:</label>
 
-    <p>
-        <label for="email">Email:</label>
-        <input type="email" placeholder="Enter email or phone no" id="email" name="email" class="edit" value="testtest" required>
-        <p class="error-email" id="error-email">Enter email address.</p>
-    </p>
-       
+            <p>
+                <input type="text" placeholder="Enter name" id="name" name="name" class="edit" value="testtest"
+                    required>
+            <p class="error-username" id="error-username">Enter valid name.</p>
+            </p>
 
-    <p>
-        <label for="password">Password:</label>
-        <input type="password" placeholder="Enter password" id="password" name="password" class="edit" value="testtest" required>
-        <p class="error-password" id="error-password">Enter email address.</p>
-    </p>
-        <!-- <button type="submit" class="btn-submit">Submit</button> -->
+            <p>
+                <label for="email">Email:</label>
+                <input type="email" placeholder="Enter email or phone no" id="email" name="email" class="edit"
+                    value="testtest" required>
+            <p class="error-email" id="error-email">Enter email address.</p>
+            </p>
 
-        <div id="signUpButton" type="submit" class="btn-submit" onclick="showProgress()"> 
 
-            <div id="text"> SIGN UP </div> 
-            <div id="progressCircle"  class="hidden" style="margin-top: 30px; margin-left: 20px;"></div>
-     
-         </div>
+            <p>
+                <label for="password">Password:</label>
+                <input type="password" placeholder="Enter password" id="password" name="password" class="edit"
+                    value="testtest" required>
+            <p class="error-password" id="error-password">Enter email address.</p>
+            </p>
 
-    </form>
+            <div class="message" id="message" style="
+            border-radius: 5px; 
+            background-color: #ff0032; 
+            color: white;
+            padding: 6px;
+            text-align: end;
+            display: block;
+            margin-bottom: -15px;
+            display: none;">
+
+            </div>
+
+            <div id="signUpButton" type="submit" class="btn-submit" onclick="showProgress()">
+
+                <div id="text"> SIGN UP </div>
+                <div id="progressCircle" class="hidden" style="margin-top: 30px; margin-left: 20px;"></div>
+
+            </div>
+
+        </form>
 
 
     </div>
+
+    <script>
+
+        const button = document.getElementById('signUpButton');
+
+        button.addEventListener('click', function () {
+
+            const responseMessage = document.getElementById('message');
+            responseMessage.style.display = "none";
+
+            var mUserName = document.getElementById('name').value;
+            var mEmail = document.getElementById('email').value;
+            var mPassword = document.getElementById('password').value;
+
+            if (mUserName.trim() == '') {
+                var mUserName = document.getElementById('name');
+                mUserName.focus();
+                mUserName.scrollIntoView();
+                document.getElementById('error-username').style.display = 'block';
+                return;
+            }
+
+            if (mUserName.length < 5) {
+                alert("Username must be at least 3 characters long!.");
+                return;
+            }
+            if (mEmail.trim() == '') {
+                var mEmail = document.getElementById('email');
+                mEmail.focus();
+                mEmail.scrollIntoView();
+                document.getElementById('error-email').style.display = 'block';
+                return;
+            }
+            if (mEmail.trim() == '') {
+                var mEmail = document.getElementById('email');
+                mEmail.focus();
+                mEmail.scrollIntoView();
+                document.getElementById('error-email').style.display = 'block';
+                return;
+            }
+
+            if (!validateEmail(mEmail)) {
+                const responseMessage = document.getElementById('message');
+                responseMessage.textContent = "Invalid email address.";
+                responseMessage.style.display = "block";
+                return;
+            }
+
+            if (mPassword.trim() == '') {
+                var mPassword = document.getElementById('password');
+                mPassword.focus();
+                mPassword.scrollIntoView();
+                document.getElementById('error-password').style.display = 'block';
+                return;
+            }
+
+
+            var button = document.getElementById("actionButton");
+            var textView = document.getElementById("text");
+
+            textView.style.display = "none";
+
+            progressCircle.classList.remove("hidden");
+
+            postApi();
+
+        });
+
+
+        const userName = document.getElementById("name");
+        const email = document.getElementById("email");
+        const password = document.getElementById("password");
+
+        userName.addEventListener("input", function () {
+            document.getElementById("name").className = document.getElementById("name").className.replace(" error", "");
+            document.getElementById('error-username').style.display = 'none';
+        });
+
+        email.addEventListener("input", function () {
+            document.getElementById("email").className = document.getElementById("email").className.replace(" error", "");
+            document.getElementById('error-email').style.display = 'none';
+
+            const responseMessage = document.getElementById('message');
+            responseMessage.style.display = "none";
+        });
+
+        password.addEventListener("input", function () {
+            document.getElementById("password").className = document.getElementById("password").className.replace(" error", "");
+            document.getElementById('error-password').style.display = 'none';
+        });
+
+        function postApi() {
+            //  alert("inner called postApi");
+
+            // TimeZone
+            const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            console.log(timeZone); // user time zone, e.g., "Asia/Kolkata"
+
+            const acc = "cr_master_signup";
+            const mobile = "8940570614"
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const password = "akila968";
+
+            const data = {
+                acc: acc,
+                mobile: mobile,
+                name: name,
+                email: email,
+                password: password,
+                timeZone: timeZone
+            };
+
+            console.log(JSON.stringify(data));
+
+            // POST request to the API
+            fetch('https://skyblue.co.in/skyblue_main.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+                .then(response => response.json())
+                .then(data => {
+
+                    console.log(data);
+                    console.log(`Message: ${data.message}`);
+
+                    const status = +`${data[0].status}`;
+
+                    console.log("status : " + status)
+
+                    if (status == 2) {
+                        const responseMessage = document.getElementById('message');
+                        responseMessage.textContent = `${data[0].message}`;
+                        responseMessage.style.display = "block";
+                    }
+
+                    var textView = document.getElementById("text");
+                    textView.style.display = "block";
+                    progressCircle.classList.add("hidden");
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+
+
+                    const responseMessage = document.getElementById('message');
+                    responseMessage.textContent = 'Error:' + error;
+                    responseMessage.style.display = "block";
+
+                    var textView = document.getElementById("text");
+                    textView.style.display = "block";
+                    progressCircle.classList.add("hidden");
+                });
+
+        }
+
+
+        function validateEmail(email) {
+            const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return regex.test(email);
+        }
+
+
+    </script>
 
 
     <div id="response"></div>

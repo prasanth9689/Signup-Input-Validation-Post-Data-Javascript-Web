@@ -17,25 +17,25 @@ body {
     padding-right: 40px;
     padding-top: 50px;
     padding-bottom: 50px;
-    left      : 50%;
-    top       : 50%;
-    position  : absolute;
-    transform : translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
 }
 
-.login{
+.login {
     color: rgb(50, 49, 48);
     text-align: center;
     z-index: 1;
     -webkit-margin-before: 0;
-    margin-block-start:0;
+    margin-block-start: 0;
     font-family: Segoe UI Variable Display, "Segoe UI", "Segoe UI Web (West European)", "Segoe UI", -apple-system, BlinkMacSystemFont, "Roboto", "Helvetica Neue", sans-serif;
     font-size: 30px;
     font-weight: 500;
     line-height: 1.2;
     letter-spacing: 0.5px;
     margin-bottom: 40px;
- }
+}
 
 label {
     width: 100%;
@@ -46,7 +46,7 @@ label {
 
 
 .edit {
-    width:100%;
+    width: 100%;
     height: 35px;
     margin-top: 0px;
     border-radius: 5px;
@@ -54,26 +54,26 @@ label {
     padding-left: 15px;
 }
 
-.error-username{
+.error-username {
     color: #ff3500;
     font-size: 12px;
     margin-top: -15px;
     display: none;
- }
+}
 
- .error-email {
+.error-email {
     color: #ff3500;
     font-size: 12px;
     margin-top: -15px;
     display: none;
- }
+}
 
- .error-password {
+.error-password {
     color: #ff3500;
     font-size: 12px;
     margin-top: -15px;
     display: none;
- }
+}
 
 #response {
     margin-top: 20px;
@@ -127,3 +127,22 @@ label {
         transform: translate(-50%, -50%) rotate(360deg);
     }
 }
+
+
+@media only screen and (max-width: 600px) {
+    #frm {
+        background-color: #ff0000;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 80%;
+        background: white;
+        padding-left: 40px;
+        padding-right: 40px;
+        padding-top: 50px;
+        padding-bottom: 50px;
+        left      : 50%;
+        top       : 50%;
+        position  : absolute;
+        transform : translate(-50%, -50%);
+    }
+} 
